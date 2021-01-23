@@ -2,12 +2,18 @@
 
 from django.db import migrations
 
+def create_data(apps, schema_editor):
+    Ingredient = apps.get_model('foods', 'ingredient')
+    with open("BudgetDatabase.csv") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            Ingredient(name=row[0], store="Aldi", price=row[1]).save()
+            Ingredient(name=row[0], store="Kroger", price=row[5]).save()
+            Ingredient(name=row[0], store="Trader Joe's", price=row[9]).save()
+            Ingredient(name=row[0], store="Publix", price=row[13]).save()
+            Ingredient(name=row[0], store="Walmart", price=row[17]).save()
 
 class Migration(migrations.Migration):
-
-    def create_data(apps, schema_editor):
-        Ingredient = apps.get_model('foods', 'ingredient')
-        Ingredient(name="test", store="a", price="1.24").save()
 
     dependencies = [
         ('foods', '0001_initial'),
