@@ -1,5 +1,6 @@
 import NavigationBar from "./components/navigationBar";
 import Ingredient from "./components/ingredient";
+import Homepage from "./components/homepage";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
         <NavigationBar />
       </header>
       <main>
-        <Ingredient />
+        <Homepage />
       </main>
     </div>
   );
