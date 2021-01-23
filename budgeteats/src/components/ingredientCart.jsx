@@ -5,16 +5,35 @@ import CounterInput from "react-bootstrap-counter";
 
 class IncredientCart extends Component {
   state = {
-    total: [],
+    totalPrice: [0, 0],
+    count: [1, 1],
   };
 
   removeIngredient = (ingredient) => {
     this.props.removeIngredient(ingredient);
   };
+
+  setPrice = () => {
+    var totalPrice = [0, 0];
+    this.props.addedIngredients.forEach((ingredient, i) => {
+      ingredient.slice(1).forEach((price, index) => {
+        totalPrice[index] += price * this.state.count[i];
+      });
+    });
+    return totalPrice;
+  };
+
   render() {
     return (
       <div>
-        <Table striped bordered hover variant="light" responsive="md">
+        <Table
+          onChange={this.setPrice}
+          striped
+          bordered
+          hover
+          variant="light"
+          responsive="md"
+        >
           <thead>
             <tr>
               <th>Ingredient Name</th>
@@ -25,19 +44,25 @@ class IncredientCart extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.addedIngredients.map((ingredient, index) => {
+            {this.props.addedIngredients.map((ingredient, i) => {
               return (
-                <tr key={index}>
+                <tr key={i}>
                   <td>{ingredient[0]}</td>
-                  {ingredient.map((item, index) => {
-                    if (index > 0) return <td key={index}>{"$ " + item}</td>;
+                  {ingredient.slice(1).map((item, index) => {
+                    return (
+                      <td key={index}>{"$ " + item * this.state.count[i]}</td>
+                    );
                   })}
                   <td>
                     <CounterInput
-                      value={1}
+                      value={this.state.count[i]}
                       min={1}
                       max={10}
-                      onChange={() => {}}
+                      onChange={(val) => {
+                        var count = this.state.count;
+                        count[i] = val;
+                        this.setState({ count });
+                      }}
                     />
                   </td>
                   <td style={{ display: "flex", justifyContent: "center" }}>
@@ -55,8 +80,9 @@ class IncredientCart extends Component {
           <tfoot>
             <tr>
               <th>Total</th>
-              <th>$150</th>
-              <th>$200</th>
+              {this.setPrice().map((price, i) => {
+                return <th key={i}>{"$ " + price}</th>;
+              })}
             </tr>
           </tfoot>
         </Table>
