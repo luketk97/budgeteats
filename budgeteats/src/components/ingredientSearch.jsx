@@ -3,11 +3,17 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 class IngredientSearch extends Component {
-  state = {};
+  state = { total: [0, 0, 0, 0, 0] };
 
   addIngredient = (ingredient) => {
     this.props.addIngredient(ingredient);
   };
+
+  addFilter = (item) => {
+    //.target.value
+    this.props.addFilter(item.target.value);
+  };
+
   render() {
     return (
       <div>
@@ -15,6 +21,7 @@ class IngredientSearch extends Component {
           type="text"
           placeholder="Search for Ingredients"
           style={{ margin: 20, width: "60%", top: 0, fontSize: 25 }}
+          onChange={this.addFilter}
         ></input>
         <Table striped bordered hover variant="light">
           <thead>
@@ -30,8 +37,8 @@ class IngredientSearch extends Component {
               return (
                 <tr key={index}>
                   <td>{ingredient[0]}</td>
-                  {ingredient.map((item, index) => {
-                    if (index > 0) return <td key={index}>{"$ " + item}</td>;
+                  {ingredient.slice(1).map((item, index) => {
+                    return <td key={index}>{"$ " + item}</td>;
                   })}
                   <td style={{ display: "flex", justifyContent: "center" }}>
                     <Button

@@ -39,7 +39,13 @@ class Ingredient extends Component {
     this.setState({ addedIngredients });
   };
 
-  filterIngredient = () => {};
+  addFilter = (input) => {
+    var filterIngredients = this.state.ingredients.filter((ingredient) =>
+      ingredient[0].includes(input)
+    );
+
+    this.setState({ filterIngredients });
+  };
 
   componentDidMount() {
     var ingredients = [
@@ -111,6 +117,7 @@ class Ingredient extends Component {
             onSearch={this.filterIngredients}
             stores={this.state.stores}
             ingredientsName={this.state.ingredientsName}
+            addFilter={this.addFilter}
           />
         </div>
         <div style={tableStyle}>
