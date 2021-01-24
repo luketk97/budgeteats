@@ -12,6 +12,11 @@ class IngredientSearch extends Component {
     this.props.addFilter(item.target.value);
   };
 
+  returnItemPrice(price) {
+    let item = price === 0 ? "Not Found" : "$ " + price;
+    return item;
+  }
+
   render() {
     return (
       <div>
@@ -36,7 +41,7 @@ class IngredientSearch extends Component {
                 <tr key={index}>
                   <td>{ingredient[0]}</td>
                   {ingredient.slice(1).map((item, index) => {
-                    return <td key={index}>{"$ " + item}</td>;
+                    return <td key={index}>{this.returnItemPrice(item)}</td>;
                   })}
                   <td style={{ display: "flex", justifyContent: "center" }}>
                     <Button

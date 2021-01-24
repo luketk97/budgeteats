@@ -3,8 +3,8 @@ import IngredientCart from "./ingredientCart";
 import IngredientSearch from "./ingredientSearch";
 
 const tableStyle = {
-  width: "40%",
-  margin: "5%",
+  width: "46%",
+  margin: "2%",
   display: "inline-block",
   borderRadius: 10,
 };

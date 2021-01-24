@@ -13,16 +13,8 @@ class IncredientCart extends Component {
   };
 
   setPrice = () => {
+    // console.log(event.target.CounterInput);
     var count = this.state.count;
-
-    var i = count.length;
-    while (this.props.addedIngredients.length > i) {
-      count.push(1);
-      ++i;
-    }
-
-    console.log(i);
-
     var totalPrice = new Array(this.props.stores.length).fill(0);
     this.props.addedIngredients.forEach((ingredient, i) => {
       ingredient.slice(1).forEach((price, index) => {
@@ -33,6 +25,27 @@ class IncredientCart extends Component {
     return totalPrice;
   };
 
+  incrementCounter = (i) => {
+    var count = this.state.count;
+    count[i]++;
+    this.setState({ count });
+  };
+
+  decrementCounter = (i) => {
+    if (this.state.count[i] > 1) {
+      var count = this.state.count;
+      count[i]--;
+      this.setState({ count });
+    }
+  };
+
+  returnItemPrice(price, i) {
+    let item =
+      price === 0
+        ? "Not Found"
+        : "$ " + parseFloat(price * this.state.count[i]).toFixed(2);
+    return item;
+  }
   render() {
     return (
       <div>
@@ -42,7 +55,7 @@ class IncredientCart extends Component {
           bordered
           hover
           variant="light"
-          responsive="md"
+          responsive
         >
           <thead>
             <tr>
@@ -55,25 +68,44 @@ class IncredientCart extends Component {
           </thead>
           <tbody>
             {this.props.addedIngredients.map((ingredient, i) => {
+              var count = this.state.count;
+              var countIndex = count.length;
+              while (this.props.addedIngredients.length > countIndex) {
+                count.push(1);
+                ++countIndex;
+              }
               return (
-                <tr key={i}>
+                <tr>
                   <td>{ingredient[0]}</td>
                   {ingredient.slice(1).map((item, index) => {
-                    return (
-                      <td key={index}>{"$ " + item * this.state.count[i]}</td>
-                    );
+                    return <td key={index}>{this.returnItemPrice(item, i)}</td>;
                   })}
-                  <td>
-                    <CounterInput
-                      value={this.state.count[i]}
-                      min={1}
-                      max={10}
-                      onChange={(val) => {
-                        var count = this.state.count;
-                        count[i] = val;
-                        this.setState({ count });
-                      }}
-                    />
+                  <td
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="secondary"
+                      style={{ width: 35, height: 35 }}
+                      onClick={() => this.decrementCounter(i)}
+                    >
+                      -
+                    </Button>
+                    <span style={{ marginLeft: 10, marginRight: 10 }}>
+                      {this.state.count[i]}
+                    </span>
+                    <Button
+                      variant="secondary"
+                      style={{ width: 35, height: 35 }}
+                      onClick={() => this.incrementCounter(i)}
+                    >
+                      +
+                    </Button>
                   </td>
                   <td style={{ display: "flex", justifyContent: "center" }}>
                     <Button
