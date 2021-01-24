@@ -3,8 +3,6 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 class IngredientSearch extends Component {
-  state = { total: [0, 0, 0, 0, 0] };
-
   addIngredient = (ingredient) => {
     this.props.addIngredient(ingredient);
   };

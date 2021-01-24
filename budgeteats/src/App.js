@@ -8,7 +8,7 @@ function App() {
         <NavigationBar />
       </header>
       <main>
-        <Ingredient />
+        <Ingredient/>
       </main>
     </div>
   );

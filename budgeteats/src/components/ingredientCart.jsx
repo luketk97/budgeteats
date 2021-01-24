@@ -5,8 +5,7 @@ import CounterInput from "react-bootstrap-counter";
 
 class IncredientCart extends Component {
   state = {
-    totalPrice: [0, 0],
-    count: [1, 1],
+    count: [],
   };
 
   removeIngredient = (ingredient) => {
@@ -14,12 +13,23 @@ class IncredientCart extends Component {
   };
 
   setPrice = () => {
-    var totalPrice = [0, 0];
+    var count = this.state.count;
+
+    var i = count.length;
+    while (this.props.addedIngredients.length > i) {
+      count.push(1);
+      ++i;
+    }
+
+    console.log(i);
+
+    var totalPrice = new Array(this.props.stores.length).fill(0);
     this.props.addedIngredients.forEach((ingredient, i) => {
       ingredient.slice(1).forEach((price, index) => {
-        totalPrice[index] += price * this.state.count[i];
+        totalPrice[index] += price * count[i];
       });
     });
+
     return totalPrice;
   };
 
@@ -81,7 +91,7 @@ class IncredientCart extends Component {
             <tr>
               <th>Total</th>
               {this.setPrice().map((price, i) => {
-                return <th key={i}>{"$ " + price}</th>;
+                return <th key={i}>{"$ " + parseFloat(price).toFixed(2)}</th>;
               })}
             </tr>
           </tfoot>

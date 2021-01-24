@@ -6,12 +6,12 @@ const tableStyle = {
   width: "40%",
   margin: "5%",
   display: "inline-block",
-  overflow: "auto",
   borderRadius: 10,
 };
 
 class Ingredient extends Component {
   state = {
+    apiData: [],
     stores: [],
     ingredients: [],
     filterIngredients: [],
@@ -41,38 +41,14 @@ class Ingredient extends Component {
 
   addFilter = (input) => {
     var filterIngredients = this.state.ingredients.filter((ingredient) =>
-      ingredient[0].includes(input)
+      ingredient[0].toLowerCase().includes(input.toLowerCase())
     );
-
     this.setState({ filterIngredients });
   };
 
-  componentDidMount() {
-    var ingredients = [
-      {
-        name: "tomato",
-        price: 10.0,
-        store: "costco",
-      },
-      {
-        name: "tomato",
-        price: 9.0,
-        store: "sobeys",
-      },
-      {
-        name: "banana",
-        price: 15.0,
-        store: "costco",
-      },
-      {
-        name: "banana",
-        price: 20.0,
-        store: "sobeys",
-      },
-    ];
-
-    var stores = ["costco", "sobeys"];
-
+  modifyData(ingredients) {
+    var stores = ["Aldi", "Kroger", "Trader's Joe", "Publix", "Walmart"];
+    //localhost:8000/api/foods
     var ingredientsName = [];
 
     ingredients.forEach((ingredient) => {
@@ -106,6 +82,16 @@ class Ingredient extends Component {
       filterIngredients: newFormat,
       ingredientsName,
     });
+  }
+  componentDidMount() {
+    fetch("http://localhost:8000/api/foods/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.modifyData(data);
+      })
+      .catch((e) => console.log(e));
   }
   render() {
     return (
