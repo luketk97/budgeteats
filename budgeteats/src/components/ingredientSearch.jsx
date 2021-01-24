@@ -39,7 +39,7 @@ class IngredientSearch extends Component {
             {this.props.ingredients.map((ingredient, index) => {
               return (
                 <tr key={index}>
-                  <td>{ingredient[0]}</td>
+                  <td style={{ maxWidth: 80 }}>{ingredient[0]}</td>
                   {ingredient.slice(1).map((item, index) => {
                     return <td key={index}>{this.returnItemPrice(item)}</td>;
                   })}
