@@ -8,8 +8,7 @@ class NavigationBar extends Component {
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">BudgetEats</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="ingredients">Ingredients</Nav.Link>
-          <Nav.Link href="recipes">Recipes</Nav.Link>
+          <Nav.Link href="ingredients" >Ingredients</Nav.Link>
         </Nav>
       </Navbar>
     );

@@ -8,16 +8,20 @@ class Homepage extends Component {
             backgroundImage: `url(${homeimage})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
-            height: '100vh',
+            height: '180vh',
+            
             
         }
         return(
             <div>
                 <Jumbotron style={styles}>
-                    <container style={{ display: "flex", justifyContent:'center'}}>
-                        <h1 style={{ color: 'white'}}>
+                    <container style={{ marginTop: '50px', display: "flex", justifyContent:'center'}}>
+                        <h1 style={{ color: 'white', fontFamily:'Lobster', fontSize: '70px' }}>
                             BudgetEats
                         </h1>
+                        <p>
+
+                        </p>
                     </container>
                 </Jumbotron>
             </div>
