@@ -3,10 +3,11 @@ import IngredientCart from "./ingredientCart";
 import IngredientSearch from "./ingredientSearch";
 
 const tableStyle = {
-  width: "46%",
+  width: "auto",
   margin: "2%",
   display: "inline-block",
   borderRadius: 10,
+  height: 750,
 };
 
 class Ingredient extends Component {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import CounterInput from "react-bootstrap-counter";
 
 class IncredientCart extends Component {
   state = {
@@ -76,7 +75,7 @@ class IncredientCart extends Component {
               }
               return (
                 <tr>
-                  <td>{ingredient[0]}</td>
+                  <td style={{ maxWidth: 80 }}>{ingredient[0]}</td>
                   {ingredient.slice(1).map((item, index) => {
                     return <td key={index}>{this.returnItemPrice(item, i)}</td>;
                   })}
